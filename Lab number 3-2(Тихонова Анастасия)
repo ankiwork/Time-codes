@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define N 5  //Матрица размером NxN
 
@@ -27,6 +28,8 @@ int FindSumma(int a[N][N], int p) {  //Функция поиска суммы в
 }
 
 int main(int argc, const char * argv[]) {  //Главная функция
+
+    srand(time(NULL));
  
     int a[N][N];  //Объявление матрицы
     int i, j;  //Счётчики для прохода по матрице
