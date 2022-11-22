@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <locale.h>
+
+#define M 5 // Константа размерности массива "MxM"
+#define K M/2
+
+int main() {
+
+    int i, j;
+    int a[M][M];
+    int sum = 0;
+    
+    srand((unsigned int)time(NULL));
+
+    setlocale(LC_ALL, "Russian");
+
+    printf("\n\n");
+    
+    for (i = 0; i < M; i++) {
+
+        for (j = 0; j < M; j++) {
+
+            a[i][j] = rand() % 2 - 1;
+
+            if ((i <= M - 1 - j && i >= j) || (i >= M - 1 - j && i <= j)) {
+
+                printf("%5d", a[i][j]);
+                sum += a[i][j];
+            }
+            else {
+
+                printf("%5d", 5);
+
+            }
+
+        }
+
+        printf("\n\n");
+
+    }
+
+    printf("\n");
+
+    printf("Сумма зелёной области: %d\n\n", sum);
+
+    int b[M];
+    int count = 0;
+    
+    printf("Массив: [ ");
+    for (j = 0; j < M; j++) {
+
+        for (i = 0; i < M; i++) {
+            
+            if (a[i][j] < 0) {
+
+                if ((i <= M - 1 - j && i >= j) || (i >= M - 1 - j && i <= j)) {
+
+                    count++;
+                    
+                }
+                
+            }
+
+        }
+        
+        b[j] = count;
+        printf("%d ", b[j]);
+        count = 0;
+        
+    }
+    printf("]");
+    
+    printf("\n\n");
+    
+}
