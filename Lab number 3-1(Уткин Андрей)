@@ -1,0 +1,39 @@
+#include <clocale>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define M 10
+
+int index(int a[]) {
+
+	int plus = 0;
+	for (int i = 0; i < M; i++) {
+		if (a[i] >= 0) {
+			plus = i;
+			break;
+		}
+	}
+
+	return plus;
+
+}
+
+int main() {
+
+	setlocale(LC_ALL, "Russian");
+	srand(time(NULL));
+
+	int a[M];
+	printf("Массив [ ");
+	for (int i = 0; i < M; i++) {
+		a[i] = 1 + rand() % 19 - 10;
+		printf("%d ", a[i]);
+	}
+	printf("]\n\n");
+
+	int plus;
+	plus = index(a);
+	printf("Индекс первого положительного элемента массива: %d\n", plus);
+
+}
