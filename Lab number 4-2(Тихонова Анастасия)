@@ -4,26 +4,40 @@
 #include <time.h>
 
 #define N 3
-#define A 2
 
-void FindingTheNumberOfPositiveNegativeNumbers(int matrix[N][N], int* pB) {
+int* FindingTheNumberOfPositiveNumbers(int matrix[N][N]) {
 
-    int positive = 0, negative = 0;
+    int counter = 0;
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             if (i + j > N - 1) {
                 if (matrix[i][j] >= 0) {
-                    positive++;
-                }
-                else {
-                    negative++;
+                    counter++;
                 }
             }
         }
     }
 
-    pB[0] = positive;
-    pB[1] = negative;
+    int* positive = &counter;
+    return positive;
+
+}
+
+int* FindingTheNumberOfNegativeNumbers(int matrix[N][N]) {
+
+    int counter = 0;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (i + j > N - 1) {
+                if (matrix[i][j] < 0) {
+                    counter++;
+                }
+            }
+        }
+    }
+
+    int* negative = &counter;
+    return negative;
 
 }
 
@@ -52,10 +66,13 @@ int main(int argc, const char* argv[]) {
         printf("\n\n");
     }
 
-    int pB[A];
-    FindingTheNumberOfPositiveNegativeNumbers(matrix, pB);
-    printf("Количество положительных чисел: %d\n", pB[0]);
-    printf("Количество отрицательных чисел: %d\n", pB[1]);
+    int* pA;
+    pA = FindingTheNumberOfPositiveNumbers(matrix);
+    printf("Количество положительных чисел: %d\n", *pA);
+
+    int* pB;
+    pB = FindingTheNumberOfNegativeNumbers(matrix);
+    printf("Количество отрицательных чисел: %d\n", *pB);
 
     return 0;
 
