@@ -3,12 +3,12 @@
 #include <locale.h>
 #include <time.h>
 
-#define N 3
+#define N 3  //РаЗмЕрЧиК МаТрИцЫ
 
-int* FindingTheNumberOfPositiveNumbers(int matrix[N][N]) {
+int* FindingTheNumberOfPositiveNumbers(int matrix[N][N]) {  //Функция для поиска положительных элементов
 
-    int counter = 0;
-    for (int i = 0; i < N; i++) {
+    int counter = 0;  //Счётчик положительных элементов
+    for (int i = 0; i < N; i++) {  //Всё, что ниже тот же цикл что и из main, только ещё прописано условие положительности
         for (int j = 0; j < N; j++) {
             if (i + j > N - 1) {
                 if (matrix[i][j] >= 0) {
@@ -18,15 +18,15 @@ int* FindingTheNumberOfPositiveNumbers(int matrix[N][N]) {
         }
     }
 
-    int* positive = &counter;
-    return positive;
+    int* positive = &counter;   //Запихиваем адрес, который хранит значение counter в указатель positive
+    return positive;  //Покупаем путёвку домой в main
 
 }
 
-int* FindingTheNumberOfNegativeNumbers(int matrix[N][N]) {
+int* FindingTheNumberOfNegativeNumbers(int matrix[N][N]) {  //Функция для поиска отрицательных элементов
 
-    int counter = 0;
-    for (int i = 0; i < N; i++) {
+    int counter = 0;  //Счётчик отрицательных элементов
+    for (int i = 0; i < N; i++) {   //Всё, что ниже тот же цикл что и из main, только ещё прописано условие отрицательности
         for (int j = 0; j < N; j++) {
             if (i + j > N - 1) {
                 if (matrix[i][j] < 0) {
@@ -36,44 +36,44 @@ int* FindingTheNumberOfNegativeNumbers(int matrix[N][N]) {
         }
     }
 
-    int* negative = &counter;
-    return negative;
-
+    int* negative = &counter;  //Запихиваем адрес, который хранит значение counter в указатель negative
+    return negative;  //Покупаем путёвку домой в main
+     
 }
 
-int main(int argc, const char* argv[]) {
+int main(int argc, const char* argv[]) {  //Даже не вникай в эту ересь внутри скобок, я сам не понимаю что это
 
-    setlocale(LC_ALL, "Russian");
-    srand(time(NULL));
+    setlocale(LC_ALL, "Russian");  //Чтобы ты прочитать смогла что выводит эта ШтУчКа
+    srand(time(NULL));  //Если это ШтУкИ не будет, то у тебя матрица будет каждый раз одной и той же, грубо говоря каждый раз рандомит новые числа
 
     int matrix[N][N];
-    printf("\n\n");
+    printf("\n\n");  //Моя личная шиза, чтобы при выводе в онсольку у матрицы был отступ сверху, не люблю когда начало в краях консоли
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
-            if (i + j == N - 1) {
-                matrix[i][j] = 1 + rand() % 19 - 10;
+            if (i + j == N - 1) {  //Твоя любимая диагональка на которой ты схалутрила жёлтого цвета
+                matrix[i][j] = 1 + rand() % 19 - 10;  
                 printf("\x1B[33m%5d\033[0m", matrix[i][j]);
             }
-            if (i + j < N - 1) {
+            if (i + j < N - 1) {  //Всё что выше диагональки
                 matrix[i][j] = 1 + rand() % 19 - 10;
                 printf("\x1B[31m%5d\033[0m", matrix[i][j]);
             }
-            if (i + j > N - 1) {
+            if (i + j > N - 1) {  //Всё что ниже диагональки
                 matrix[i][j] = 1 + rand() % 19 - 10;
                 printf("\x1B[32m%5d\033[0m", matrix[i][j]);
             }
         }
-        printf("\n\n");
+        printf("\n\n");  //Моя личная шиза, чтобы матрица была идеальна по всем фронтам, если не понятно убери один \n и прозреешь
     }
 
-    int* pA;
-    pA = FindingTheNumberOfPositiveNumbers(matrix);
-    printf("Количество положительных чисел: %d\n", *pA);
+    int* pA;  //Это типо станция паровозика, чтобы присвоить адрес к другому указателю уже тут и вывести, мб это можно проще сделать, но мне и так по кайфу
+    pA = FindingTheNumberOfPositiveNumbers(matrix);  //Обращаемся к нашей супер пупер дуппер фанкшн и присваиваем к станции адрес ячейки, где количество положительных элементов...
+    printf("Количество положительных чисел: %d\n", *pA);  //Выводим ЦЕЛОЕ ЧИСЛО, ТАК ЧТО БУДЬ ДОБРА ЗВЕЗДЮЛЬКУ НЕ ЗАБЫВАЙ *
 
-    int* pB;
-    pB = FindingTheNumberOfNegativeNumbers(matrix);
-    printf("Количество отрицательных чисел: %d\n", *pB);
+    int* pB;  //Это типо станция паровозика, чтобы присвоить адрес к другому указателю уже тут и вывести, мб это можно проще сделать, но мне и так по кайфу
+    pB = FindingTheNumberOfNegativeNumbers(matrix);   //Обращаемся к нашей супер пупер дуппер фанкшн и присваиваем к станции адрес ячейки, где количество положительных элементов...
+    printf("Количество отрицательных чисел: %d\n", *pB);  //Выводим ЦЕЛОЕ ЧИСЛО, ТАК ЧТО БУДЬ ДОБРА ЗВЕЗДЮЛЬКУ НЕ ЗАБЫВАЙ *
 
-    return 0;
+    return 0;  //Тот кто это прочитал, хорошего тебе дня :3
 
 }
