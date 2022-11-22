@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <time.h>
+
+#define N 3
+
+int FindingTheNumberOfPositiveNumbers(int matrix[N][N], int vvod) {
+
+    int positive = 0;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (i + j > N - 1) {
+                if (matrix[i][j] >= 0) {
+                    if (i == vvod) {
+                        positive++;
+                    }
+                }
+            }
+        }
+    }
+
+    return positive;
+
+}
+
+
+int main(int argc, const char* argv[]) {
+
+    setlocale(LC_ALL, "Russian");
+    srand(time(NULL));
+
+    int matrix[N][N];
+    printf("\n\n");
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (i + j == N - 1) {
+                matrix[i][j] = 1 + rand() % 19 - 10;
+                printf("\x1B[33m%5d\033[0m", matrix[i][j]);
+            }
+            if (i + j < N - 1) {
+                matrix[i][j] = 1 + rand() % 19 - 10;
+                printf("\x1B[31m%5d\033[0m", matrix[i][j]);
+            }
+            if (i + j > N - 1) {
+                matrix[i][j] = 1 + rand() % 19 - 10;
+                printf("\x1B[32m%5d\033[0m", matrix[i][j]);
+            }
+        }
+        printf("\n\n");
+    }
+    
+    int vvod;
+    printf("Введите номер строки: "); scanf_s("%d", &vvod);
+
+    int positive = 0;
+    positive = FindingTheNumberOfPositiveNumbers(matrix, vvod);
+    printf("Количество положительных чисел: %d\n", positive);
+
+    return 0;
+
+}
