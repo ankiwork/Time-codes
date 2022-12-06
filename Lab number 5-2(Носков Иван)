@@ -1,1 +1,22 @@
+#include <iostream>
 
+using namespace std;
+
+int main(int argc, const char* argv[]) {
+
+    srand(time(NULL));
+
+    int n = 1, m = 1;
+    cout << "Enter the number of lines:   "; cin >> n;
+    cout << "Enter the number of columns: "; cin >> m;
+
+    double** a;
+    a = (double**)malloc(n * sizeof(double*));
+    for (int i = 0; i < m; i++) {
+        a[i] = (double*)malloc(m * sizeof(double));
+        for (int j = 0; j < n; j++) {
+            a[i][j] = 0.5 + rand() % 9 / 1.5;
+        }
+        cout << endl << endl;
+    }
+}
