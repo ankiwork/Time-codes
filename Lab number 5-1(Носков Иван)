@@ -1,0 +1,66 @@
+#include <iostream>
+
+using namespace std;
+
+int StringLength(char* string) {
+	int length = 0;
+	while (string[length] != '\0') {
+		length++;
+	}
+	return length;
+}
+
+int NumberOfWords(char* string) {
+	int i = 0;  
+	while ((string = strchr(string, ' '))) {
+		i++;  
+		string++; 
+	}
+	return i + 1;  
+}
+
+int LowercaseCharacters(char* string, int size) {
+	int count = 0;
+	for (int i = 0; i < size; i++) {
+		if ('a' <= string[i] && string[i] <= 'z') {
+			count++;
+		}
+	}
+	return count;
+}
+
+int UppercaseCharacters(char* string, int size) {
+	int count = 0;
+	for (int i = 0; i < size; i++) {
+		if ('A' <= string[i] && string[i] <= 'Z') {
+			count++;
+		}
+	}
+	return count;
+}
+
+int* StringAnalysis(int size, char* string) {
+	int* DataArray = new int[size];
+	//
+	int i = 0;
+	DataArray[i] = StringLength(string);
+	i++;
+	DataArray[i] = NumberOfWords(string);
+	i++;
+	DataArray[i] = LowercaseCharacters(string, size);
+	i++;
+	DataArray[i] = UppercaseCharacters(string, size);
+	//
+	return DataArray;
+}
+
+int main() {
+	char string[100] = "GHfRgtg Gtdfr fqf FHS Sg SGs";
+
+	const int size = 4;
+	int* DataArray = StringAnalysis(size, string);
+	cout << "LineLength:           " << DataArray[0] << endl;
+	cout << "Number of words:      " << DataArray[1] << endl;
+	cout << "Lowercase characters: " << DataArray[2] << endl;
+	cout << "Uppercase characters: " << DataArray[3] << endl;
+}
