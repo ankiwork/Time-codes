@@ -1,0 +1,23 @@
+#include <iostream>
+
+#define MAXIMUM_STRING_SIZE 256
+
+using namespace std;
+
+int main() {
+	/*
+	* Ввод строки
+	*/
+	cout << "Enter the line: ";
+	char string[MAXIMUM_STRING_SIZE];
+	gets_s(string);
+	/*
+	* Динамическое выделение памяти под строку
+	*/
+	char* str = (char*)malloc(strlen(string) + 1);
+	free(string);
+    /*
+	* Копирование строки 
+	*/
+	strcpy(str, string);
+}
