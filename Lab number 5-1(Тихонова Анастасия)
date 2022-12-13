@@ -1,23 +1,66 @@
 #include <iostream>
 
-#define MAXIMUM_STRING_SIZE 256
-
 using namespace std;
 
+int StringLength(char* string) {
+    int length = 0;
+    while (string[length] != '\0') {
+        length++;
+    }
+    return length;
+}
+
+int NumberOfWords(char* string) {
+    int i = 0;
+    while ((string = strchr(string, ' '))) {
+        i++;
+        string++;
+    }
+    return i + 1;
+}
+
+int LowercaseCharacters(char* string, int size) {
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (48 <= string[i] && string[i] <= 57) {
+            count++;
+        }
+    }
+    return count;
+}
+
+int UppercaseCharacters(char* string, int size) {
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (string[i] == ' ') {
+            count++;
+        }
+    }
+    return count;
+}
+
+int* StringAnalysis(int size, char* string) {
+    int* DataArray = new int[size];
+    //
+    int i = 0;
+    DataArray[i] = StringLength(string);
+    i++;
+    DataArray[i] = NumberOfWords(string);
+    i++;
+    DataArray[i] = LowercaseCharacters(string, DataArray[0]);
+    i++;
+    DataArray[i] = UppercaseCharacters(string, DataArray[0]);
+    //
+    return DataArray;
+}
+
 int main() {
-	/*
-	* Ввод строки
-	*/
-	cout << "Enter the line: ";
-	char string[MAXIMUM_STRING_SIZE];
-	gets_s(string);
-	/*
-	* Динамическое выделение памяти под строку
-	*/
-	char* str = (char*)malloc(strlen(string) + 1);
-	free(string);
-    /*
-	* Копирование строки 
-	*/
-	strcpy(str, string);
+    char string[100] = "GGGGGGG gg6g345 gg";
+
+    const int size = 4;
+    int* DataArray = StringAnalysis(size, string);
+    cout << "LineLength:           " << DataArray[0] << endl;
+    cout << "Number of words:      " << DataArray[1] << endl;
+    cout << "Number of digits:     " << DataArray[2] << endl;
+    cout << "The space characters: " << DataArray[3] << endl;
 }
