@@ -1,0 +1,224 @@
+#include <iostream>
+#include <clocale>
+
+using namespace std;
+
+#define VALUABLE 20
+#define ZIP_SEN    10
+#define SURNAME_SEN   10
+#define NAME_SEN   10
+#define ZIP_REC   10
+#define SURNAME_REC   10
+#define NAME_REC   10
+#define BUFFER_SIZE 500
+
+struct POST {
+
+    double valuable;
+    int zip_sen;
+    char* surname_sen;
+    char* name_sen;
+    int zip_rec;
+    char* surname_rec;
+    char* name_rec;
+
+    POST() {
+
+        valuable = 0;
+        zip_sen = 0;
+        surname_sen = new char[SURNAME_SEN];
+        name_sen = new char[NAME_SEN];
+        zip_rec = 0;
+        surname_rec = new char[SURNAME_REC];
+        name_rec = new char[NAME_REC];
+
+    }
+
+    ~POST() {
+
+        delete[] surname_sen;
+        delete[] name_sen;
+        delete[] surname_rec;
+        delete[] name_rec;
+    }
+
+};
+
+void clear_buffer(void) {
+    fseek(stdin, 0, SEEK_END);
+}
+
+void input_string(char* dest, const char* msg) {
+    cout << msg;
+    clear_buffer();
+    char buff[BUFFER_SIZE] = { };
+    fgets(buff, BUFFER_SIZE, stdin);
+    strcpy_s(dest, sizeof(buff), buff);
+}
+
+void DownLoadPostInformation(POST* let, int i) {
+
+    cout << "Отправление номер: " << i + 1 << endl;
+
+    cout << "Ценность:            "; cin >> let[i].valuable;
+    cout << "Индекс отправителя:  "; cin >> let[i].zip_sen;
+    cout << "Фамилия отправителя: "; cin >> let[i].surname_sen;
+    cout << "Имя отправителя:     "; cin >> let[i].name_sen;
+    cout << "Индекс получателя:   "; cin >> let[i].zip_rec;
+    cout << "Фамилия получателя:  "; cin >> let[i].surname_rec;
+    cout << "Имя получателя:      "; cin >> let[i].name_rec;
+    cout << endl;
+
+}
+
+void AddPostInformation(POST* let, int i) {
+
+    cout << "Отправление номер: " << i + 1 << endl;
+
+    cout << "Ценность:            "; cin >> let[i].valuable;
+    cout << "Индекс отправителя:  "; cin >> let[i].zip_sen;
+    cout << "Фамилия отправителя: "; cin >> let[i].surname_sen;
+    cout << "Имя отправителя:     "; cin >> let[i].name_sen;
+    cout << "Индекс получателя:   "; cin >> let[i].zip_rec;
+    cout << "Фамилия получателя:  "; cin >> let[i].surname_rec;
+    cout << "Имя получателя:      "; cin >> let[i].name_rec;
+    cout << endl;
+
+}
+
+void UploadPostGroupName(POST* let, int i) {
+
+
+    cout << "Отправление номер: " << i + 1 << endl;
+
+    cout << "Ценность:            "; cout << let[i].valuable << endl;
+    cout << "Индекс отправителя:  "; cout << let[i].zip_sen << endl;
+    cout << "Фамилия отправителя: "; cout << let[i].surname_sen << endl;
+    cout << "Имя отправителя:     "; cout << let[i].name_sen << endl;
+    cout << "Индекс получателя:   "; cout << let[i].zip_rec << endl;
+    cout << "Фамилия получателя:  "; cout << let[i].surname_rec << endl;
+    cout << "Имя получателя:      "; cout << let[i].name_rec << endl;
+
+}
+
+void InitPost(POST stud[], int size) {  //Ввод с клавиатуры информации письмах
+    for (int i = 0; i < size; i++) {
+        DownLoadPostInformation(stud, i);
+    }
+}
+
+void AddPost(POST*& let, int& size) {  //Добавление нового письма
+    POST* tmp = new POST[size + 1];
+    for (int i = 0; i < size; i++) {
+        tmp[i].valuable = let[i].valuable;
+        tmp[i].zip_sen = let[i].zip_sen;
+        strcpy_s(tmp[i].surname_sen, strlen(let[i].surname_sen) + 1, let[i].surname_sen);
+        strcpy_s(tmp[i].name_sen, strlen(let[i].name_sen) + 1, let[i].name_sen);
+        tmp[i].zip_rec = let[i].zip_rec;
+        strcpy_s(tmp[i].surname_rec, strlen(let[i].surname_rec) + 1, let[i].surname_rec);
+        strcpy_s(tmp[i].name_rec, strlen(let[i].name_rec) + 1, let[i].name_rec);
+
+    }
+    AddPostInformation(tmp, size);
+    size++;
+    delete[] let;
+    let = tmp;
+}
+
+void PrintInfoPost(POST* let, int size) {
+
+    int number;  //Переменная для ввода группы с клавиатуры
+    cout << "Введите номер отправления: "; cin >> number; cout << endl;
+
+
+    cout << "+------------------------+" << endl;
+    cout << "|" << "Ценность посылки    " << "|" << let[number].valuable << "  |" << endl;
+    cout << "|" << "Индекс отправителя  " << "|" << let[number].zip_sen << "  |" << endl;
+    cout << "|" << "Фамилия отправителя " << "|" << let[number].surname_sen << "  |" << endl;
+    cout << "|" << "Имя отправителя     " << "|" << let[number].name_sen << "  |" << endl;
+    cout << "|" << "Индекс получателя   " << "|" << let[number].zip_rec << "  |" << endl;
+    cout << "|" << "Фамилия получателя  " << "|" << let[number].surname_rec << "  |" << endl;
+    cout << "|" << "Имя получателя      " << "|" << let[number].name_rec << "  |" << endl;
+    cout << "+------------------------+" << endl;
+
+}
+
+void FindPostValue(POST* let, int size) {  //Поиск всех студентов, состоящих в заданной группе
+
+    char* namegroup = NULL;  //Переменная для ввода группы с клавиатуры
+    //cout << "Введите группу: "; cin >> namegroup; cout << endl;
+    cin.getline(namegroup, 10000);
+    for (int i = 0; i < size; i++) {
+        if (*namegroup == let[i].valuable) {  //Проверка на ввод, например: if (PIN == PIN) {
+            UploadPostGroupName(let, i);
+        }
+    }
+}
+
+
+void FindPostNumberGroup(POST* let, int size) {  //Поиск всех студентов, состоящих в заданной группе и номере группы
+    char* surname;
+    char* name;
+    input_string(surname, "Surname:");
+    input_string(name, "Name:");
+    for (int i = 0; i < size; i++) {
+        if ((surname == let[i].surname_sen) && (name == let[i].name_sen)) {  //Проверка на ввод
+            UploadPostGroupName(let, i);
+        }
+    }
+}
+
+int main() {
+
+    setlocale(LC_ALL, "Russian");
+
+    int size = 100;
+    struct POST* let = new POST[size];
+
+    InitPost(let, size);
+
+    int request = 0;  //Переменная для прерывания цикла ниже, когда пользователь введёт [1]
+    while (request == 0) {
+
+        cout << "Закончить операцию                                            - [1]" << endl;
+        cout << "Добавить новое письмо                                         - [2]" << endl;
+        cout << "Распечатать информацию о письме в табличном виде              - [3]" << endl;
+        cout << "Определить всех студентов по заданному направлению подготовки - [4]" << endl;
+        cout << "Определить всех студентов заданной группе и номеру группы     - [5]" << endl << endl;
+
+        cout << "Введите номер операции: ";
+        cin >> request;
+        cout << endl;
+
+        switch (request) {
+
+        case 1:
+            break;
+
+        case 2:
+            AddPost(let, size);
+            request = 0;
+            break;
+
+        case 3:
+            PrintInfoPost(let, size);
+            request = 0;
+            break;
+
+        case 4:
+            FindPostValue(let, size);
+            request = 0;
+            break;
+
+        case 5:
+            FindPostNumberGroup(let, size);
+            request = 0;
+            break;
+
+        }
+
+    }
+
+    delete[] let;
+
+}
